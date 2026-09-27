@@ -3,7 +3,7 @@
 // in this map falls back to English at runtime. All lines are translations
 // of this project's own original writing.
 import { CHARACTERS } from './characters.js'
-import { CHAT_SCRIPTS, SCENE_SCRIPTS, SCENE_SECRETS, DOUBT_LINES, JUDGMENTS, REFLECTION_LINES, ROUNDTABLE_SCRIPTS } from './script.js'
+import { CHAT_SCRIPTS, SCENE_SCRIPTS, SCENE_SECRETS, DOUBT_LINES, JUDGMENTS, REFLECTION_LINES, ROUNDTABLE_SCRIPTS, TABLE_ITEMS } from './script.js'
 import { SCENES } from './scenes.js'
 import { TOPICS } from './topics.js'
 
@@ -501,5 +501,46 @@ RTR('monsters-self', 1, 0, '一个探视者。永远站在门口，犹豫要不�
 RTR('monsters-self', 1, 1, '一面只照得出「她」的镜子。……我在旅馆里撞见过我的那面。图鉴里没有它，但我向你保证，它是这座镇子里最强的东西。')
 RTL('monsters-self', 2, '劳拉——说实话。一只怪物都没有？')
 RTR('monsters-self', 2, 0, '有一次一条狗冲我叫。就这。恐怖故事到此为止。\n……好吧，说真的？这里的大人有时候会露出一种表情，像一扇门「砰」地关上——所有人，同一张脸。那个才吓人。怪物反而简单。怪物你还能跑。')
+
+// ------------------------------------------------- table items (roundtable memorabilia)
+
+const TI = id => TABLE_ITEMS.find(x => x.id === id)
+const TIE = (id, i, zh) => add(TI(id).exchange[i].text, zh)
+
+add(TI('radio').name, '袖珍收音机')
+add(TI('radio').blurb, '坏了。但还在播——用坏消息的频率。')
+TIE('radio', 0, '别碰那个——行吧。碰吧。要是它响起静电，这桌上就有人和自己声称的不一样，而我不想知道具体是哪个座位。')
+TIE('radio', 1, '它对着我。它永远对着我。……这是张圆桌，玛丽亚，什么都不对着谁。我知道。闭嘴。')
+TIE('radio', 2, '静电也是我最后听到的无线电声——那间病房里的机器整夜都有意见。谁把它扣过去吧。有些频率挣得了一次安息。')
+
+add(TI('health-drink').name, '营养饮料')
+add(TI('health-drink').blurb, '一瓶营养饮料。恢复少量体力。喝起来是后悔和维生素B的味道。')
+TIE('health-drink', 0, '这东西我少说喝了一百瓶。一次都没看过标签。这句话里装着这镇子的全部哲学，你们要的话拿去。')
+TIE('health-drink', 1, '我每次受伤他都递我一瓶。一盒饮料。我死了，又回来了，这个男人递给我一瓶饮品。……但怎么还有点感人？悲恸把我们个个都训练成了糟糕的护士。')
+TIE('health-drink', 2, '三年，全是杯子里那些「对我好」的东西。地狱如果存在，里面一定插着吸管。把他那瓶给劳拉吧——长身体的女孩扛得住乐观主义。')
+TIE('health-drink', 3, '玛丽的病床桌上总摆着一瓶这个。她管它叫「号称是午餐」。\n它喝起来像电视雪花的味道。我有资格这么说。我舔过电池。')
+
+add(TI('canned-juice').name, '罐装果汁')
+add(TI('canned-juice').blurb, '一罐普通果汁。众所周知，扔进垃圾滑道比喝掉有用。')
+TIE('canned-juice', 0, '我往垃圾滑道里扔过一罐这个。故意的。当时的理由无懈可击。就是从那天起，我不再要求这镇子解释自己了。')
+TIE('canned-juice', 1, '你干了什么？')
+TIE('canned-juice', 2, '它砸下来一具尸体。尸体上有把钥匙。听着——这镇子是有幽默感的，只是因为打光问题被归档进了恐怖片。')
+TIE('canned-juice', 3, '然后还有人问我，为什么会怀疑自己是不是一个「逻辑自洽宇宙里的真人」。')
+TIE('canned-juice', 4, '等等。有果汁，然后你把它扔进了滑道？\n……不过，一具尸体啊。嚯。这镇子打分还真是看曲线的。')
+
+add(TI('dog-key').name, '狗钥匙')
+add(TI('dog-key').blurb, '一把带狗形挂饰的钥匙。开观察室的门。按理说你现在还不该拿到它。')
+TIE('dog-key', 0, '你从哪儿弄来的。你到底从哪儿弄来的。趁那只柴犬还没看见你，放回去。')
+TIE('dog-key', 1, '……那把钥匙开的门后面有什么，我见过。有一条狗。坐在控制台前。如果我没记错，还戴着耳机。\n我愿意拿这镇子给我的所有其他答案，去换「不知道这一个」。')
+TIE('dog-key', 2, '一条狗。这一切——雾、那封信、我的信——一条狗。\n……知道吗，在今晚桌上所有的解释里，这甚至算不上最没尊严的那个。至少那条狗看起来干得挺开心。')
+TIE('dog-key', 3, '有狗？！在哪儿。在哪儿！\n这是有史以来唯一重要的线索。所有人别再聊内疚了，我们现在就去看狗。')
+add(TI('dog-key').curator, '「狗」结局：游戏在嘲弄自己的谜团。哪怕是一个关于罪疚的故事，也会留一扇门，让意义拒绝住进去。')
+
+add(TI('music-box').name, '小美人鱼八音盒')
+add(TI('music-box').blurb, '来自旅馆大堂。它曾为一段用声音作了交换的爱演奏。')
+TIE('music-box', 0, '小美人鱼。一个为爱交出声音的女孩，落得化成海沫的下场。他们把这个摆在蜜月旅馆的大堂。装修委员会里有位高人，戏路是真宽。')
+TIE('music-box', 1, '我从没站进过那个大堂，却会哼那支曲子。带装修入住，记得吗。……曲子很好听。我非常恨它。')
+TIE('music-box', 2, '玛丽以前在车里哼过它。我刚才这一刻才想起来。这就是这镇子——它从不拿走你的记忆。它等着，在最糟糕的时刻把记忆递还给你。')
+TIE('music-box', 3, '一个女孩把声音交换出去，故事把这归档在「爱」底下。然后他们把它摆进蜜月客人办入住的大堂。\n……我一直在等另一个版本：她把沉默换回来的那版。')
 
 export default ZH
