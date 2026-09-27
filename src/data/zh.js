@@ -3,7 +3,7 @@
 // in this map falls back to English at runtime. All lines are translations
 // of this project's own original writing.
 import { CHARACTERS } from './characters.js'
-import { CHAT_SCRIPTS, SCENE_SCRIPTS, SCENE_SECRETS, DOUBT_LINES, JUDGMENTS, REFLECTION_LINES } from './script.js'
+import { CHAT_SCRIPTS, SCENE_SCRIPTS, SCENE_SECRETS, DOUBT_LINES, JUDGMENTS, REFLECTION_LINES, ROUNDTABLE_SCRIPTS } from './script.js'
 import { SCENES } from './scenes.js'
 import { TOPICS } from './topics.js'
 
@@ -424,5 +424,36 @@ add(T('love-after-guilt').seed, '展厅向圆桌发问：在你们之间发生�
 add(T('monsters-self').title, '怪物是自我的一部分吗？')
 add(T('monsters-self').subtitle, '关于护士、人偶，和那个戴红头盔的东西。')
 add(T('monsters-self').seed, '展厅向圆桌发问：雾里的那些造物——它们是敌人，还是被创作出来的？如果是创作，作者是这张桌上的谁？')
+
+// ------------------------------------------------- roundtable dialogue
+
+const RTT = (tid, i, zh) => add(ROUNDTABLE_SCRIPTS[tid].turns[i].text, zh)
+const RTL = (tid, i, zh) => add(ROUNDTABLE_SCRIPTS[tid].interjections[i].label, zh)
+const RTR = (tid, i, j, zh) => add(ROUNDTABLE_SCRIPTS[tid].interjections[i].replies[j].text, zh)
+
+// —— 议题一：寂静岭是什么？
+RTT('what-is-silent-hill', 0, '它是一座镇子。73号公路，过了湖就到。有加油站、保龄球馆，还有个历史学会。我需要它是一座镇子——所以让我再这么信一分钟。')
+RTT('what-is-silent-hill', 1, '它本来就是一座镇子！可算有个正常人了。保龄球馆什么的都有。\n……为什么大家都用那种眼神看我，好像我说了什么让人难过的话？')
+RTT('what-is-silent-hill', 2, '一座雾只往特定的人身边聚的镇子？詹姆斯，那个加油站什么都不卖。保龄球馆的记分表上是你的笔迹。说它是镇子，就像说捕鼠夹是餐厅。')
+RTT('what-is-silent-hill', 3, '它是一座舞台。布景一夜之间搭好，道具上已经带着你的指纹。\n我最有资格知道。据说，我是和家具一起配来的。')
+RTT('what-is-silent-hill', 4, '你们说起它都带着诗意。我告诉你们它是什么：它是后屋。哪儿都有那么一间——专门堆没人想摆在门面上的东西。\n某一天，整个镇子就这么默认了我该待在那儿。别说「不是这样的，埃迪」。雾先这么说的。')
+RTT('what-is-silent-hill', 5, '你们描述的都是外面。从我坐的位置看，它简单得多：它是一间候诊室。这里每个人都卡在「做过的事」和「说不出口的事」之间。镇子只是……为这种状态配好了家具。')
+RTT('what-is-silent-hill', 6, '那它要怪物做什么？如果是候诊室，为什么有护士，为什么有——为什么有他。那个红色的东西。候诊室不该配刽子手。')
+RTT('what-is-silent-hill', 7, '不该配吗？你那位是你自己造的，亲爱的。不是镇子派那东西来追你——是你递交了申请。有人进候诊室带本书。你带了一位法官。')
+RTT('what-is-silent-hill', 8, '你们一直在说雾。\n这里对我是热的。从我来的那天起，每条街都一直是热的。同一座镇子，不同的天气。\n所以你问寂静岭是什么——等你不再假装每个人头顶的天气都一样，剩下的那个东西就是它。')
+RTT('what-is-silent-hill', 9, '玛丽亚。……她没说错，詹姆斯，只是她说得太享受了。\n我真正的想法是：镇子，就是你的罪疚拿到规划许可之后的样子。对安吉拉，它在燃烧。对你，它沉进水里，安静下来。它从来不是同一个地方。有多少人需要一座寂静岭，就有多少座寂静岭。')
+RTT('what-is-silent-hill', 10, '……那个女孩。劳拉。她走过同样的街道，什么都没看见。没有雾，没有怪物。从护士们身边跨过去，就像跨过几件家具。\n我以前以为那证明她被保护着。其实恰恰相反，对吧。那证明我们这些人才是闹鬼的房子，镇子只是说了实话。')
+RTT('what-is-silent-hill', 11, '你们在说我？？没礼貌。\n不过——确实。这里无聊死了。我这一整周找到的最好的东西是一只猫。\n……等等。为什么那是「恰恰相反」？你们到底一直在看见什么？！')
+RTT('what-is-silent-hill', 12, '劳拉看到的是一座无聊的观光小镇，因为它本来就是——对任何无罪可忏的人来说。以后谈起这个地方时记住这一点。不是你被困在寂静岭，詹姆斯。是寂静岭被困在你身体里。')
+
+RTL('what-is-silent-hill', 0, '可镇子在詹姆斯来之前就存在。它有自己的历史——监狱、瘟疫。')
+RTR('what-is-silent-hill', 0, 0, '每座监狱、每场瘟疫也都存在过。旧的痛苦会腌入一个地方。镇子早在我们之前就有自己的疤——我们只是各自找到了和自己伤口对得上的房间。')
+RTR('what-is-silent-hill', 0, 1, '嗯。也可能那段历史也是布景，历史学会里的「档案」是在他需要找到点什么的那一刻才印出来的。你在一座连镜子都会被改写的镇子里，相信档案。')
+RTL('what-is-silent-hill', 1, '如果镇子惩罚有罪的人，为什么它给了詹姆斯他想要的——玛丽亚？')
+RTR('what-is-silent-hill', 1, 0, '……再说一遍，慢一点，说的时候看着我。')
+RTR('what-is-silent-hill', 1, 1, '因为把我想要的给我，本身就是惩罚。和她在一起的每一个小时，都是那句指控，换了副客气的措辞。镇子从没打过我一下。它不需要。')
+RTL('what-is-silent-hill', 2, '安吉拉、埃迪——早在詹姆斯之前，镇子就为你们俩存在了。它当时是什么样子？')
+RTR('what-is-silent-hill', 2, 0, '冷冰冰的房间，和一座保龄球馆，嘲讽上写着我的名字。它知道我的尺码，就是这么回事。头一个知道的地方。')
+RTR('what-is-silent-hill', 2, 1, '……烟。不是从任何你指得出来的东西上冒出来的。\n它看起来像我家的屋子里面，披着一整座镇子。关于户型，我只说这么多。')
 
 export default ZH
