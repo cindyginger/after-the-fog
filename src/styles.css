@@ -124,9 +124,16 @@ button { font-family: inherit; cursor: pointer; }
 .landing .enter:hover { color: var(--paper); border-color: var(--ink-dim); background: rgba(255,255,255,0.02); }
 .landing .disclaimer {
   position: absolute; bottom: 1.4rem; left: 0; right: 0;
+  padding: 0 1.5rem;
   font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.08em;
   color: var(--ink-faint);
   animation: fade-up 3.2s 2s ease both;
+}
+/* short or narrow viewports: keep the disclaimer in flow so it can't
+   climb into the centered content */
+@media (max-height: 600px), (max-width: 480px) {
+  .landing .enter { margin-top: 2.2rem; }
+  .landing .disclaimer { position: static; margin-top: 2.6rem; }
 }
 @keyframes fade-up {
   from { opacity: 0; transform: translateY(12px); }
