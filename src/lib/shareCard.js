@@ -1,6 +1,8 @@
 // Render the Reflection Card to a downloadable PNG — hand-drawn on canvas
 // so the demo stays fully static (no html-to-image dependency).
 
+import { t, getLang } from './i18n.js'
+
 const W = 720
 const H = 960
 const PAPER = '#cfc8b6'
@@ -8,11 +10,13 @@ const INK = '#23241f'
 const RED = '#6e2a20'
 
 function wrap(ctx, text, maxWidth) {
-  const words = text.split(' ')
+  // CJK text has no spaces — wrap character by character
+  const units = text.includes(' ') ? text.split(' ') : text.split('')
+  const joiner = text.includes(' ') ? ' ' : ''
   const lines = []
   let line = ''
-  for (const w of words) {
-    const test = line ? line + ' ' + w : w
+  for (const w of units) {
+    const test = line ? line + joiner + w : w
     if (ctx.measureText(test).width > maxWidth && line) {
       lines.push(line)
       line = w
@@ -63,17 +67,18 @@ export async function exportCard({ ending, topThemes, evasiveName, evasiveCount,
   ctx.lineWidth = 1
   ctx.strokeRect(36, 36, W - 72, H - 72)
 
+  const zh = getLang() === 'zh'
   ctx.textAlign = 'center'
   let y = 110
 
   // header
   ctx.fillStyle = INK
   ctx.font = '30px "Special Elite", monospace'
-  ctx.fillText(spaced('REFLECTION CARD'), W / 2, y)
+  ctx.fillText(spaced(zh ? t('Reflection Card') : 'REFLECTION CARD'), W / 2, y)
   y += 28
   ctx.font = '12px "IBM Plex Mono", monospace'
   ctx.fillStyle = 'rgba(35,36,31,0.6)'
-  ctx.fillText('A F T E R   T H E   F O G   ·   V I S I T O R   R E C O R D', W / 2, y)
+  ctx.fillText(zh ? t('AFTER THE FOG · VISITOR RECORD') : 'A F T E R   T H E   F O G   ·   V I S I T O R   R E C O R D', W / 2, y)
   y += 52
 
   // verdict box
@@ -81,15 +86,15 @@ export async function exportCard({ ending, topThemes, evasiveName, evasiveCount,
   ctx.strokeRect(76, y - 26, W - 152, 168)
   ctx.font = '11px "IBM Plex Mono", monospace'
   ctx.fillStyle = 'rgba(35,36,31,0.55)'
-  ctx.fillText('THE FOG HAS REACHED A VERDICT', W / 2, y)
+  ctx.fillText(zh ? t('The fog has reached a verdict') : 'THE FOG HAS REACHED A VERDICT', W / 2, y)
   y += 52
   ctx.font = '46px "Special Elite", monospace'
   ctx.fillStyle = ending.id === 'dog' ? '#7a5c28' : RED
-  ctx.fillText(spaced(ending.title), W / 2, y)
+  ctx.fillText(zh ? t(ending.title) : spaced(ending.title), W / 2, y)
   y += 36
   ctx.font = 'italic 19px "EB Garamond", serif'
   ctx.fillStyle = INK
-  for (const l of wrap(ctx, ending.line, W - 200)) {
+  for (const l of wrap(ctx, t(ending.line), W - 200)) {
     ctx.fillText(l, W / 2, y)
     y += 26
   }
@@ -109,10 +114,12 @@ export async function exportCard({ ending, topThemes, evasiveName, evasiveCount,
     }
     y += 20
   }
-  stat('Themes circled', topThemes.length ? topThemes.join(' · ') : '—')
-  stat('Most evasive', evasiveName ? `${evasiveName} (${evasiveCount} deflected)` : 'No one evaded you. Or no one was pressed.')
-  stat('Places entered', placeNames.length ? placeNames.join(' · ') : '—')
-  stat('Objects touched', String(objectCount || '—'))
+  stat(t('Themes circled'), topThemes.length ? topThemes.map(th => t(th)).join(' · ') : '—')
+  stat(t('Most evasive'), evasiveName
+    ? (zh ? `${t(evasiveName)}（回避了 ${evasiveCount} 个问题）` : `${evasiveName} (${evasiveCount} deflected)`)
+    : t('No one evaded you. Or no one was pressed.'))
+  stat(t('Places entered'), placeNames.length ? placeNames.map(p => t(p)).join(' · ') : '—')
+  stat(t('Objects touched'), String(objectCount || '—'))
 
   // closing line
   y += 8
@@ -121,7 +128,7 @@ export async function exportCard({ ending, topThemes, evasiveName, evasiveCount,
   y += 40
   ctx.font = 'italic 20px "EB Garamond", serif'
   ctx.fillStyle = INK
-  for (const l of wrap(ctx, line, W - 180)) {
+  for (const l of wrap(ctx, t(line), W - 180)) {
     ctx.fillText(l, W / 2, y)
     y += 27
   }
@@ -129,7 +136,7 @@ export async function exportCard({ ending, topThemes, evasiveName, evasiveCount,
   // stamp + footer
   ctx.font = '15px "Special Elite", monospace'
   ctx.fillStyle = RED
-  ctx.fillText(spaced('— IN MY RESTLESS DREAMS —'), W / 2, H - 116)
+  ctx.fillText(zh ? t('— IN MY RESTLESS DREAMS —') : spaced('— IN MY RESTLESS DREAMS —'), W / 2, H - 116)
   ctx.font = '10px "IBM Plex Mono", monospace'
   ctx.fillStyle = 'rgba(35,36,31,0.5)'
   ctx.fillText('AFTER THE FOG — A NON-COMMERCIAL FAN STUDY. NOT AFFILIATED WITH KONAMI.', W / 2, H - 62)
