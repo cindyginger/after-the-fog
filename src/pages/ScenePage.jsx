@@ -4,7 +4,7 @@ import { SCENES, sceneById } from '../data/scenes.js'
 import { CHARACTERS } from '../data/characters.js'
 import { SCENE_SCRIPTS, SCENE_SECRETS, DOUBT_LINES } from '../data/script.js'
 import { useSpeech } from '../lib/useSpeech.js'
-import { t } from '../lib/i18n.js'
+import { t, getLang } from '../lib/i18n.js'
 import { useSession } from '../state/session.jsx'
 import { startAmbience, stopAmbience, discover } from '../lib/sound.js'
 import Portrait from '../components/Portrait.jsx'
@@ -79,7 +79,9 @@ export default function ScenePage() {
     if (speech.busy) speech.skip()
     setActive(obj)
     dispatch({ type: 'EXAMINE', id: `${scene.id}/${obj.id}` })
-    setMessages(m => [...m, { kind: 'system', text: `*The visitor reaches out and touches ${obj.name.toLowerCase()}.*` }])
+    setMessages(m => [...m, { kind: 'system', text: getLang() === 'zh'
+      ? `*来访者伸出手，碰了碰${t(obj.name)}。*`
+      : `*The visitor reaches out and touches ${obj.name.toLowerCase()}.*` }])
   }
 
   function findSecret() {
@@ -93,7 +95,9 @@ export default function ScenePage() {
     dispatch({ type: 'PICKUP', id: secret.id })
     const key = `sec-${keyRef.current++}`
     setMessages(m => [...m,
-      { kind: 'system', text: `*The light catches something the room was keeping: ${secret.name.toLowerCase()}.*` },
+      { kind: 'system', text: getLang() === 'zh'
+        ? `*灯光照见了房间一直藏着的东西：${t(secret.name)}。*`
+        : `*The light catches something the room was keeping: ${secret.name.toLowerCase()}.*` },
       {
         kind: 'character', speaker: character.name, key, full: secret.line.text,
         theme: character.theme.accent, curator: secret.curator

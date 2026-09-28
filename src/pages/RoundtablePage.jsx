@@ -3,7 +3,7 @@ import { TOPICS } from '../data/topics.js'
 import { CHARACTERS } from '../data/characters.js'
 import { ROUNDTABLE_SCRIPTS, TABLE_ITEMS } from '../data/script.js'
 import { useSpeech } from '../lib/useSpeech.js'
-import { t } from '../lib/i18n.js'
+import { t, getLang } from '../lib/i18n.js'
 import { useSession } from '../state/session.jsx'
 import Portrait from '../components/Portrait.jsx'
 import SpeechBubble from '../components/SpeechBubble.jsx'
@@ -135,7 +135,9 @@ export default function RoundtablePage() {
     if (speech.busy || usedItems.includes(item.id)) return
     setUsedItems(u => [...u, item.id])
     dispatch({ type: 'EXAMINE', id: `roundtable/${item.id}` })
-    setMessages(m => [...m, { kind: 'system', text: `*The visitor picks up the ${item.name.toLowerCase()} from the table.*` }])
+    setMessages(m => [...m, { kind: 'system', text: getLang() === 'zh'
+      ? `*来访者从桌上拿起了${t(item.name)}。*`
+      : `*The visitor picks up the ${item.name.toLowerCase()} from the table.*` }])
     if (item.id === 'dog-key') {
       dispatch({ type: 'PICKUP', id: 'dog-key' })
       setMessages(m => [...m, { kind: 'system', text: '*(While they argue about it, you quietly pocket the key. For research.)*' }])

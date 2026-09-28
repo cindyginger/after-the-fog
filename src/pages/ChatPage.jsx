@@ -5,7 +5,7 @@ import { CHAT_SCRIPTS, DOUBT_LINES, ITEM_REACTIONS, POCKET_ITEMS } from '../data
 import { POCKET_ICONS } from '../components/pocketIcons.jsx'
 import { discover } from '../lib/sound.js'
 import { useSpeech } from '../lib/useSpeech.js'
-import { t } from '../lib/i18n.js'
+import { t, getLang } from '../lib/i18n.js'
 import { useSession } from '../state/session.jsx'
 import { isReturnVisit } from '../lib/persist.js'
 import Portrait from '../components/Portrait.jsx'
@@ -132,7 +132,9 @@ export default function ChatPage() {
     const itemName = POCKET_ITEMS[itemId].name
     const key = `show-${keyRef.current++}`
     setMessages(m => [...m,
-      { kind: 'system', text: `*You take out ${itemName.toLowerCase()} and hold it up.*` },
+      { kind: 'system', text: getLang() === 'zh'
+        ? `*你掏出${t(itemName)}，举了起来。*`
+        : `*You take out ${itemName.toLowerCase()} and hold it up.*` },
       { kind: 'character', speaker: character.name, key, full: reaction.text }
     ])
     dispatch({ type: 'LOG', speaker: 'visitor', text: `(shows ${itemName})` })

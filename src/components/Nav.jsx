@@ -24,7 +24,7 @@ export default function Nav() {
         <button
           className={`mute-toggle ${muted ? 'is-muted' : ''}`}
           onClick={toggleMute}
-          title={muted ? 'Unmute — let them speak' : 'Mute — silence the hill'}
+          title={t(muted ? 'Unmute — let them speak' : 'Mute — silence the hill')}
         >
           {muted ? t('SOUND OFF') : t('SOUND ON')}
         </button>
