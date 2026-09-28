@@ -3,7 +3,7 @@
 // in this map falls back to English at runtime. All lines are translations
 // of this project's own original writing.
 import { CHARACTERS } from './characters.js'
-import { CHAT_SCRIPTS, SCENE_SCRIPTS, SCENE_SECRETS, DOUBT_LINES, JUDGMENTS, REFLECTION_LINES, ROUNDTABLE_SCRIPTS, TABLE_ITEMS } from './script.js'
+import { CHAT_SCRIPTS, SCENE_SCRIPTS, SCENE_SECRETS, DOUBT_LINES, JUDGMENTS, REFLECTION_LINES, ROUNDTABLE_SCRIPTS, TABLE_ITEMS, POCKET_ITEMS, ITEM_REACTIONS } from './script.js'
 import { SCENES } from './scenes.js'
 import { TOPICS } from './topics.js'
 
@@ -542,5 +542,42 @@ TIE('music-box', 0, '小美人鱼。一个为爱交出声音的女孩，落得�
 TIE('music-box', 1, '我从没站进过那个大堂，却会哼那支曲子。带装修入住，记得吗。……曲子很好听。我非常恨它。')
 TIE('music-box', 2, '玛丽以前在车里哼过它。我刚才这一刻才想起来。这就是这镇子——它从不拿走你的记忆。它等着，在最糟糕的时刻把记忆递还给你。')
 TIE('music-box', 3, '一个女孩把声音交换出去，故事把这归档在「爱」底下。然后他们把它摆进蜜月客人办入住的大堂。\n……我一直在等另一个版本：她把沉默换回来的那版。')
+
+// ------------------------------------------------- pocket items & reactions
+
+const IR = (iid, cid, zh) => add(ITEM_REACTIONS[iid][cid].text, zh)
+
+add(POCKET_ITEMS['secret-ring'].name, '婚戒')
+add(POCKET_ITEMS['secret-bottle'].name, '软木塞瓶')
+add(POCKET_ITEMS['secret-drawing'].name, '蜡笔画')
+add(POCKET_ITEMS['dog-key'].name, '狗钥匙')
+
+IR('secret-ring', 'james', '……你从哪儿——给我。不。别给我。\n关于这枚戒指，我已经给湖讲过一个故事了。第二个我没有准备。收起来。求你。')
+IR('secret-ring', 'maria', '一枚戒指。他的？\n……比我想象的轻。这种东西，按理说该和它的含义一样重。\n趁我还没试戴，拿回去。我认真的。拿回去。')
+IR('secret-ring', 'mary', '哦。\n他说它掉进湖里了。他说这话的那场小型演出，我全程在场。\n原来在床底下。这几乎比谎言本身更糟——掉进湖里，至少算一个决定。')
+IR('secret-ring', 'angela', '人摘下戒指都是有原因的。有时是坏的原因。有时是为了活下去的原因。\n我不打算问他的属于哪种。哪个答案都不会让我意外，而我已经厌倦了不感到意外。')
+IR('secret-ring', 'eddie', '结了婚的人啊。有人一辈子盼着谁能给自己戴上一枚戒指，这帮人的戒指却在家具底下打滚。')
+IR('secret-ring', 'laura', '那是玛丽的！不对，等等——是另一枚。他的。\n玛丽在医院里一直戴着她那枚。后来戒指对她的手指来说太大了，她就用胶带缠着戴。用胶带！\n想想这个，再看看他这枚是在哪儿找到的。')
+
+IR('secret-bottle', 'james', '纸是白的。\n……当然是白的。这个湖退回来的东西，全都是白的。\n问我怎么知道的啊。别——还是别真问了。')
+IR('secret-bottle', 'maria', '一封没有内容的信。这湖和我幽默感一致。\n也可能它曾经写过什么，但湖水不同意。「编辑」就是这镇子的全部人格。')
+IR('secret-bottle', 'mary', '我以前想做这件事——瓶子、愿望、整套明信片式的姿态。从来没做成。\n医院里不备瓶子。而且到了最后，凡是我真心想说的话，我都不敢托付给那个湖了。')
+IR('secret-bottle', 'angela', '有人向水要过什么东西，退回来的就是这个。\n塞子别拔。空白的答案也是答案。这一点，从来没人提前警告你。')
+IR('secret-bottle', 'eddie', '你捡到一个什么都没装的瓶子，还留着它？\n……行吧。心意最重要嘛。我这辈子的写照，装在罐子里。')
+IR('secret-bottle', 'laura', '无聊。除非——等等。隐形墨水！柠檬汁！玛丽教过我这招。\n给我拿根蜡烛来。要是这上面真写了字而你差点把它扔了，你欠我一瓶汽水。')
+
+IR('secret-drawing', 'james', '……画里有两个人，在湖边。她把这张画在床头柜上摆了一个星期。后来护士把它挪走了，在——\n我不知道它还留着。蜡笔比那栋楼里的一切都活得久。真该有人研究一下这件事。')
+IR('secret-drawing', 'maria', '这是那孩子。而这是……她。\n就算是蜡笔画的，也是她。连蜡笔都画得出来。\n好极了。我在肖像领域输给了一个八岁小孩。')
+IR('secret-drawing', 'mary', '她把湖也画进去了。我把湖挂在嘴边太多次，而她一直在听——那孩子总是在听，尤其是在假装没听的时候。\n我本想和她好好道别的。只好先让这张画替我占着那个位置了。')
+IR('secret-drawing', 'angela', '一个孩子画了两个手牵手的人，那栋楼把它归档在一面没人看的墙边。\n要我说，这一张纸就画完了整座镇子。')
+IR('secret-drawing', 'eddie', '这孩子的线条比我强，我说的还不只是画画。\n……据我所知，从来没人画过我。这种事你会记住的。有人画你。')
+IR('secret-drawing', 'laura', '拿来！那是证物，劳拉的财产，弄丢它的那个护士等着挨骂吧。\n……画得不错吧？高的那个是玛丽。我给她画了笑容，因为她笑起来很好看——只要她肯笑。')
+
+IR('dog-key', 'james', '你怎么会有那个。你怎么还留着那个。\n有些门是玩笑，而笑话落在把它打开第二次的人头上。')
+IR('dog-key', 'maria', '趁那条狗还没注意到，收起来。\n我拒绝——坚决拒绝——让一只柴犬来主管我的存在主义危机。')
+IR('dog-key', 'mary', '狗钥匙。詹姆斯跟我讲过一次那条狗的事，语气像在忏悔。\n那是这镇子里唯一让我笑出来的故事。留着吧。有些证据是入药的。')
+IR('dog-key', 'angela', '……一条狗。一切的背后，是一条狗。\n我被要求接受过更糟的解释，证据还更少。至少这条狗看起来有正经工作。')
+IR('dog-key', 'eddie', '这地方是一条狗在管？一条有工作的狗？\n那条狗有事业，而我被保龄球联赛开除了。这镇子记分是真记啊。')
+IR('dog-key', 'laura', '狗钥匙！！你居然留着！\n好。新计划。我们找到那扇门，打开，狗归我，其他人可以继续伤感他们的。')
 
 export default ZH
